@@ -1,31 +1,13 @@
-# import cv2
 
-# cap = cv2.VideoCapture(0)
-
-# while True:
-#     ret, frame = cap.read()
-#     if not ret:
-#         break
-
-#     # Flip for mirror
-#     frame = cv2.flip(frame, 1)
-
-#     # Resize to 4K artificially
-#     upscale_frame = cv2.resize(frame, (3840, 2160), interpolation=cv2.INTER_CUBIC)
-
-#     cv2.imshow("Upscaled 4K", upscale_frame)
-
-#     if cv2.waitKey(1) & 0xFF == ord('q'):
-#         break
-
-# cap.release()
-# cv2.destroyAllWindows()
 import cv2
 import numpy as np
 import time
+import json
 
+with open("config.json" , "r") as f:
+    config = json.load(f)
 # Step 1: Start webcam
-cap = cv2.VideoCapture("https://192.168.21.194:8080/video")
+cap = cv2.VideoCapture(config["ipcam_url"])  # Note to replace it with 0 for webcam
 time.sleep(2)  # Wait for camera to warm up
 
 # Step 2: Capture static background (60 frames avg)
