@@ -1,11 +1,11 @@
 from threading import Thread
 import cv2
-import json
+import json 
 
-with open("config.json" , "r") as f:
+with open("config.json", "r") as f:
     config = json.load(f)
 class VideoStream:
-    def __init__(self, src=(config[ipcam_url])):
+    def __init__(self, src=0):
         self.cap = cv2.VideoCapture(src)
         self.ret, self.frame = self.cap.read()
         self.running = True
@@ -23,7 +23,7 @@ class VideoStream:
         self.cap.release()
 
 # Usage
-stream = VideoStream("http://192.168.X.X:8080/video")
+stream = VideoStream(config["ipcam_url"])  # Replace with 0 for webcam)
 while True:
     frame = stream.read()
     if frame is not None:
